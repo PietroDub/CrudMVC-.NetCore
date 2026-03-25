@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="AspNetCoreCrud/AspNetCoreCrud.csproj" />
+  <Project Path="AspNetCoreCrudMongo/AspNetCoreCrudMongo.csproj" Id="0f58d0d3-bc8c-4128-b5fa-7bfcd5c44684" />
 </Solution>
