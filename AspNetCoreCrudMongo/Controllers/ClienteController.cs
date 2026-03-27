@@ -80,7 +80,7 @@ namespace AspNetCoreCrudMongo.Controllers
         {
             if (id != cliente.Id) return NotFound();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //verifica os inputs da view
             {
                 // ✅ VERIFICA resultado do ReplaceOne
                 var filter = Builders<Cliente>.Filter.Eq(x => x.Id, id);
@@ -98,6 +98,29 @@ namespace AspNetCoreCrudMongo.Controllers
             }
 
             return View(cliente);
+        }
+
+        // GET: Estudantes/Delete/5
+        public async Task<IActionResult> Delete(string? id)
+        {
+            if (id == null) { return NotFound(); }
+
+            var cliente = await _clientes.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (cliente == null) { return NotFound(); }
+
+            return View(cliente);
+
+        }
+
+        //deleta de fato
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var filter = Builders<Cliente>.Filter.Eq(x => x.Id, id);
+            await _clientes.DeleteOneAsync(filter);  // ← Simples assim!
+            return RedirectToAction(nameof(Index));
         }
 
         private async Task<bool> ClienteExists(string id)
