@@ -1,9 +1,0 @@
-﻿@model List<Cliente>
-<h2>Clientes</h2>
-<table class="table">
-    @foreach (var c in Model)
-    {
-        <tr><td>@c.Nome</td></tr>
-    }
-</table>
-<a asp-action="Create">Novo Cliente</a>

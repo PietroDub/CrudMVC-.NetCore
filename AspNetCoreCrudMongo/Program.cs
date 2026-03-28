@@ -1,6 +1,10 @@
+using AspNetCoreCrudMongo.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<MongoDbService>();  // ← REGISTRA o serviço
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

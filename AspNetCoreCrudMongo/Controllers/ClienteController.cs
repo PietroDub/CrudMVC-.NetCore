@@ -1,6 +1,7 @@
 ﻿using AspNetCoreCrudMongo.Data;
 using AspNetCoreCrudMongo.Models;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace AspNetCoreCrudMongo.Controllers
@@ -44,18 +45,28 @@ namespace AspNetCoreCrudMongo.Controllers
             return View();
         }
 
-        // POST: Clientes/Create
+        //// POST: Clientes/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id, Nome, Senha")] Cliente cliente) //bind são os campos que podem ser enviados
+        //{
+        //    if (ModelState.IsValid) //verifica as verificações da model, tipo required, ou tamanho mínimo
+        //    {
+        //        await _clientes.InsertOneAsync(cliente);
+        //        return RedirectToAction(nameof(Index)); //redireciona para outro método
+        //    }
+        //    return View(cliente);
+        //}
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, Nome, Senha")] Cliente cliente) //bind são os campos que podem ser enviados
+        public async Task<IActionResult> Create([Bind("Nome,Senha")] Cliente cliente)  // ← SEM ID!
         {
-            if (ModelState.IsValid) //verifica as verificações da model, tipo required, ou tamanho mínimo
-            {
-                await _clientes.InsertOneAsync(cliente);
-                return RedirectToAction(nameof(Index)); //redireciona para outro método
-            }
-            return View(cliente);
+            cliente.Id = ObjectId.GenerateNewId().ToString();  // ← GERA ID
+
+            await _clientes.InsertOneAsync(cliente);  // ← Remove if(ModelState) TEMPORARIAMENTE
+            return RedirectToAction(nameof(Index));
         }
+
 
         // GET: Clientes/Edit/5
 

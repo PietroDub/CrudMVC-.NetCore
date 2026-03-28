@@ -4,6 +4,10 @@
 @{
     ViewData["Title"] = "Novo Cliente";
 }
+@if (TempData["ValidationErrors"] != null)
+{
+    <div class="alert alert-danger">@TempData["ValidationErrors"]</div>
+}
 
 <h1>Novo Cliente</h1>
 
