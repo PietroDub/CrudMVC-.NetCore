@@ -11,7 +11,7 @@ namespace AspNetCoreCrudMongo.Models
         public string Id { get; set; }
 
         [BsonElement("Nome_Cliente"), BsonRepresentation(BsonType.String)]
-        [[Required(ErrorMessage = "Nome obrigatório")]
+        [Required(ErrorMessage = "Nome obrigatório")]
         public string? Nome { get; set; }
 
         [BsonElement("Senha_Cliente"), BsonRepresentation(BsonType.String)]
